@@ -1102,9 +1102,10 @@ libvpx_x86_64_asm_srcs = [
     "libvpx/vpx_ports/x86_abi_support.asm",
 ]
 
-cc_library_static {
+cc_library_shared {
     name: "libvpx",
     vendor_available: true,
+    version_script: "exports.lds",
 
     arch: {
         // configured to require the neon unit
