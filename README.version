@@ -1,5 +1,5 @@
-URL: https://chromium.googlesource.com/webm/libvpx/+archive/v1.8.0.tar.gz
-Version: v1.8.0
+URL: https://chromium.googlesource.com/webm/libvpx/+archive/v1.8.1.tar.gz
+Version: v1.8.1
 BugComponent: 42195
 Owners: johannkoenig
 Local Modifications:
