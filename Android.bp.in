@@ -1,4 +1,4 @@
-cc_library_shared {
+cc_library {
     name: "libvpx",
     vendor_available: true,
     version_script: "exports.lds",
