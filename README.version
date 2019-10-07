@@ -3,7 +3,3 @@ Version: v1.8.1
 BugComponent: 42195
 Owners: johannkoenig
 Local Modifications:
-Following updates in vpx_dec_fuzzer are cherry-picked
-75b0abefd vpx_dec_fuzzer: Remove fmemopen dependency
-3ff6417a6 vpx_dec_fuzzer: Add -fsanitize=fuzzer-no-link
-42f801202 vpx_dec_fuzzer: Remove dependency on tools_common.c
