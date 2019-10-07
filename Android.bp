@@ -1086,7 +1086,6 @@ libvpx_x86_64_asm_srcs = [
 cc_library {
     name: "libvpx",
     vendor_available: true,
-    host_supported: true,
     version_script: "exports.lds",
 
     arch: {
@@ -1109,17 +1108,11 @@ cc_library {
         x86: {
             srcs: libvpx_x86_c_srcs + libvpx_x86_asm_srcs,
             local_include_dirs: ["config/x86"],
-            cflags: [
-                "-mssse3",
-            ],
         },
 
         x86_64: {
             srcs: libvpx_x86_64_c_srcs + libvpx_x86_64_asm_srcs,
             local_include_dirs: ["config/x86_64"],
-            cflags: [
-                "-mssse3",
-            ],
         },
     },
 

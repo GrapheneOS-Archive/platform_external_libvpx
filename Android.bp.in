@@ -1,7 +1,6 @@
 cc_library {
     name: "libvpx",
     vendor_available: true,
-    host_supported: true,
     version_script: "exports.lds",
 
     arch: {
