@@ -1,11 +1,11 @@
 @ This file was created from a .asm file
 @  using the ads2gas.pl script.
 	.syntax unified
-.equ ARCH_ARM ,  1
-.equ ARCH_MIPS ,  0
-.equ ARCH_X86 ,  0
-.equ ARCH_X86_64 ,  0
-.equ ARCH_PPC ,  0
+.equ VPX_ARCH_ARM ,  1
+.equ VPX_ARCH_MIPS ,  0
+.equ VPX_ARCH_X86 ,  0
+.equ VPX_ARCH_X86_64 ,  0
+.equ VPX_ARCH_PPC ,  0
 .equ HAVE_NEON ,  1
 .equ HAVE_NEON_ASM ,  1
 .equ HAVE_MIPS32 ,  0
@@ -87,4 +87,5 @@
 .equ CONFIG_FP_MB_STATS ,  0
 .equ CONFIG_EMULATE_HARDWARE ,  0
 .equ CONFIG_NON_GREEDY_MV ,  0
+.equ CONFIG_RATE_CTRL ,  0
 	.section	.note.GNU-stack,"",%progbits

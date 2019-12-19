@@ -1,8 +1,8 @@
-%define ARCH_ARM 0
-%define ARCH_MIPS 0
-%define ARCH_X86 1
-%define ARCH_X86_64 0
-%define ARCH_PPC 0
+%define VPX_ARCH_ARM 0
+%define VPX_ARCH_MIPS 0
+%define VPX_ARCH_X86 1
+%define VPX_ARCH_X86_64 0
+%define VPX_ARCH_PPC 0
 %define HAVE_NEON 0
 %define HAVE_NEON_ASM 0
 %define HAVE_MIPS32 0
@@ -84,3 +84,4 @@
 %define CONFIG_FP_MB_STATS 0
 %define CONFIG_EMULATE_HARDWARE 0
 %define CONFIG_NON_GREEDY_MV 0
+%define CONFIG_RATE_CTRL 0
