@@ -7,3 +7,4 @@ Local Modifications:
   0f3fe088f vp8_decode: add missing vpx_clear_system_state
   9cfcac1cb vp8,GetSigned: silence unsigned int overflow warning
   c713f8461 move common attribute defs to compiler_attributes.h
+  223645aa8 vpx_codec_enc_config_default: rm unnecessary loop
