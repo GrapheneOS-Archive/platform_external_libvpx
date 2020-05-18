@@ -1148,6 +1148,7 @@ cc_library {
         // cfi: true,
         blacklist: "libvpx_blacklist.txt",
     },
+    min_sdk_version: "29",
 }
 
 cc_fuzz {
