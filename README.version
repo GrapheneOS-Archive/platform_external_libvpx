@@ -1,11 +1,12 @@
-URL: https://chromium.googlesource.com/webm/libvpx/+archive/v1.8.0.tar.gz
-Version: v1.8.0
+URL: https://chromium.googlesource.com/webm/libvpx/+archive/v1.8.2.tar.gz
+Version: v1.8.2
 BugComponent: 42195
 Owners: johannkoenig
 Local Modifications:
-  - cherry-pick:
-    * https://chromium-review.googlesource.com/q/Ic6f5eacd9a7c21b95707d31ee2da77dc8ac7dccf
-      (11de1b838 Fix timestamp overflow issues)
-    * https://chromium-review.googlesource.com/q/I1d8a6e263fddb9e4cc6265a313011a18d18bbf9e
-      (04383393e Add missing typecast and re-enable timestamp test)
-    * 223645aa8 vpx_codec_enc_config_default: rm unnecessary loop
+  652beb6ac trivial: fix spelling errors
+  0f3fe088f vp8_decode: add missing vpx_clear_system_state
+  9cfcac1cb vp8,GetSigned: silence unsigned int overflow warning
+  c713f8461 move common attribute defs to compiler_attributes.h
+  223645aa8 vpx_codec_enc_config_default: rm unnecessary loop
+  5e065cf9d vp8/{ratectrl,onyx_if}: fix some signed integer overflows
+  5eab093a7 vp9_ratectrl: fix some signed integer overflows

@@ -260,6 +260,7 @@ typedef struct {
 
   int count_mb_ref_frame_usage[MAX_REF_FRAMES];
 
+  int last_q[2];
 } LAYER_CONTEXT;
 
 typedef struct VP8_COMP {
@@ -513,6 +514,7 @@ typedef struct VP8_COMP {
 
   int force_maxqp;
   int frames_since_last_drop_overshoot;
+  int last_pred_err_mb;
 
   // GF update for 1 pass cbr.
   int gf_update_onepass_cbr;
@@ -698,6 +700,8 @@ typedef struct VP8_COMP {
 
   // Use the static threshold from ROI settings.
   int use_roi_static_threshold;
+
+  int ext_refresh_frame_flags_pending;
 } VP8_COMP;
 
 void vp8_initialize_enc(void);
@@ -717,8 +721,8 @@ void vp8_set_speed_features(VP8_COMP *cpi);
 #if CONFIG_DEBUG
 #define CHECK_MEM_ERROR(lval, expr)                                         \
   do {                                                                      \
-    lval = (expr);                                                          \
-    if (!lval)                                                              \
+    (lval) = (expr);                                                        \
+    if (!(lval))                                                            \
       vpx_internal_error(&cpi->common.error, VPX_CODEC_MEM_ERROR,           \
                          "Failed to allocate " #lval " at %s:%d", __FILE__, \
                          __LINE__);                                         \
@@ -726,8 +730,8 @@ void vp8_set_speed_features(VP8_COMP *cpi);
 #else
 #define CHECK_MEM_ERROR(lval, expr)                               \
   do {                                                            \
-    lval = (expr);                                                \
-    if (!lval)                                                    \
+    (lval) = (expr);                                              \
+    if (!(lval))                                                  \
       vpx_internal_error(&cpi->common.error, VPX_CODEC_MEM_ERROR, \
                          "Failed to allocate " #lval);            \
   } while (0)
