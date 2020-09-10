@@ -110,10 +110,10 @@ static vpx_codec_err_t update_error_state(
     return VPX_CODEC_INVALID_PARAM; \
   } while (0)
 
-#define RANGE_CHECK(p, memb, lo, hi)                                 \
-  do {                                                               \
-    if (!(((p)->memb == lo || (p)->memb > (lo)) && (p)->memb <= hi)) \
-      ERROR(#memb " out of range [" #lo ".." #hi "]");               \
+#define RANGE_CHECK(p, memb, lo, hi)                                     \
+  do {                                                                   \
+    if (!(((p)->memb == (lo) || (p)->memb > (lo)) && (p)->memb <= (hi))) \
+      ERROR(#memb " out of range [" #lo ".." #hi "]");                   \
   } while (0)
 
 #define RANGE_CHECK_HI(p, memb, hi)                                     \
@@ -503,6 +503,9 @@ static vpx_codec_err_t update_extracfg(vpx_codec_alg_priv_t *ctx,
 static vpx_codec_err_t set_cpu_used(vpx_codec_alg_priv_t *ctx, va_list args) {
   struct vp8_extracfg extra_cfg = ctx->vp8_cfg;
   extra_cfg.cpu_used = CAST(VP8E_SET_CPUUSED, args);
+  // Use fastest speed setting (speed 16 or -16) if it's set beyond the range.
+  extra_cfg.cpu_used = VPXMIN(16, extra_cfg.cpu_used);
+  extra_cfg.cpu_used = VPXMAX(-16, extra_cfg.cpu_used);
   return update_extracfg(ctx, &extra_cfg);
 }
 
@@ -596,7 +599,7 @@ static vpx_codec_err_t set_screen_content_mode(vpx_codec_alg_priv_t *ctx,
 
 static vpx_codec_err_t vp8e_mr_alloc_mem(const vpx_codec_enc_cfg_t *cfg,
                                          void **mem_loc) {
-  vpx_codec_err_t res = 0;
+  vpx_codec_err_t res = VPX_CODEC_OK;
 
 #if CONFIG_MULTI_RES_ENCODING
   LOWER_RES_FRAME_INFO *shared_mem_loc;
@@ -605,12 +608,13 @@ static vpx_codec_err_t vp8e_mr_alloc_mem(const vpx_codec_enc_cfg_t *cfg,
 
   shared_mem_loc = calloc(1, sizeof(LOWER_RES_FRAME_INFO));
   if (!shared_mem_loc) {
-    res = VPX_CODEC_MEM_ERROR;
+    return VPX_CODEC_MEM_ERROR;
   }
 
   shared_mem_loc->mb_info =
       calloc(mb_rows * mb_cols, sizeof(LOWER_RES_MB_INFO));
   if (!(shared_mem_loc->mb_info)) {
+    free(shared_mem_loc);
     res = VPX_CODEC_MEM_ERROR;
   } else {
     *mem_loc = (void *)shared_mem_loc;
