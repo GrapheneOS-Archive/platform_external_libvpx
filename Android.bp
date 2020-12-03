@@ -1098,6 +1098,14 @@ cc_library {
         darwin: {
             enabled: false,
         },
+        android: {
+            sanitize: {
+                cfi: true,
+                config: {
+                    cfi_assembly_support: true,
+                },
+            },
+        },
     },
 
     arch: {
@@ -1144,8 +1152,6 @@ cc_library {
     sanitize: {
         integer_overflow: true,
         misc_undefined: ["bounds"],
-        // Enable CFI if this becomes a shared library.
-        // cfi: true,
         blocklist: "libvpx_blocklist.txt",
     },
     min_sdk_version: "29",
