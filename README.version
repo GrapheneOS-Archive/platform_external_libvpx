@@ -11,3 +11,4 @@ Local Modifications:
   5e065cf9d vp8/{ratectrl,onyx_if}: fix some signed integer overflows
   5eab093a7 vp9_ratectrl: fix some signed integer overflows
   baefbe85d Cap target bitrate to raw rate internally
+  5f345a924 Avoid overflow in calc_iframe_target_size
