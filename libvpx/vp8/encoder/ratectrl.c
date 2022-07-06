@@ -314,7 +314,7 @@ static void calc_iframe_target_size(VP8_COMP *cpi) {
      * bandwidth per second * fraction of the initial buffer
      * level
      */
-    target = cpi->oxcf.starting_buffer_level / 2;
+    target = (uint64_t)cpi->oxcf.starting_buffer_level / 2;
 
     if (target > cpi->oxcf.target_bandwidth * 3 / 2) {
       target = cpi->oxcf.target_bandwidth * 3 / 2;
@@ -327,7 +327,8 @@ static void calc_iframe_target_size(VP8_COMP *cpi) {
     int initial_boost = 32; /* |3.0 * per_frame_bandwidth| */
     /* Boost depends somewhat on frame rate: only used for 1 layer case. */
     if (cpi->oxcf.number_of_layers == 1) {
-      kf_boost = VPXMAX(initial_boost, (int)(2 * cpi->output_framerate - 16));
+      kf_boost =
+          VPXMAX(initial_boost, (int)round(2 * cpi->output_framerate - 16));
     } else {
       /* Initial factor: set target size to: |3.0 * per_frame_bandwidth|. */
       kf_boost = initial_boost;
