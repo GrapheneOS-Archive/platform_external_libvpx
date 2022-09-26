@@ -265,7 +265,9 @@ rm -f $BASE_DIR/Android.bp
   cat config_*.bp
   cat $BASE_DIR/Android.bp.in
 ) > $BASE_DIR/Android.bp
-bpfmt -w $BASE_DIR/Android.bp
+bpfmt -s -w "${BASE_DIR}/Android.bp" \
+  || echo "bpfmt not found. Run 'm bpfmt' followed by" \
+          "'bpfmt -s -w ${BASE_DIR}/Android.bp'."
 
 echo "Remove temporary directory."
 cd $BASE_DIR
