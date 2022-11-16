@@ -93,7 +93,7 @@ cc_library {
         "-Wno-unused-parameter",
     ],
 
-    export_include_dirs: ["libvpx"],
+    export_include_dirs: ["."],
 
     sanitize: {
         integer_overflow: true,
@@ -112,14 +112,14 @@ cc_library_headers {
     vendor_available: true,
     host_supported: true,
 
-    export_include_dirs: ["libvpx"],
+    export_include_dirs: ["."],
 }
 
 cc_fuzz {
     name: "vp9_dec_fuzzer",
     host_supported: true,
     srcs: [
-        "libvpx/examples/vpx_dec_fuzzer.cc",
+        "examples/vpx_dec_fuzzer.cc",
     ],
     target: {
         darwin: {
@@ -155,7 +155,7 @@ cc_fuzz {
     name: "vp8_dec_fuzzer",
     host_supported: true,
     srcs: [
-        "libvpx/examples/vpx_dec_fuzzer.cc",
+        "examples/vpx_dec_fuzzer.cc",
     ],
     target: {
         darwin: {
