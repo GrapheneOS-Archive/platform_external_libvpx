@@ -62,15 +62,9 @@ else
 fi
 
 [ -z "$UPSTREAM_COMMIT" ] \
-    && die "Unable to get upstream commit corresponding to ${GIT_BRANCH}";
+  && die "Unable to get upstream commit corresponding to ${GIT_BRANCH}";
 
-# Merge $GIT_BRANCH by allowing unrelated histories and squashing the changes
 git merge $UPSTREAM_COMMIT
-
-add="$(git diff-index --diff-filter=A $prev_hash | \
-tr -s [:blank:] ' ' | cut -f6 -d\ )"
-delete="$(git diff-index --diff-filter=D $prev_hash | \
-tr -s [:blank:] ' ' | cut -f6 -d\ )"
 
 # Get the current commit hash.
 hash=$(git log $UPSTREAM_COMMIT -1 --format="%H")
@@ -83,52 +77,6 @@ echo "Branch: $GIT_BRANCH"
 echo "Commit: $hash"
 echo "==============="
 echo ""
-
-# Commit message header.
-echo "Commit message:"
-echo "==============="
-echo "libvpx: Pull from upstream"
-echo ""
-
-# Output the current commit hash.
-echo "Current HEAD: $hash"
-echo ""
-
-# Output log for upstream from current hash.
-if [ -n "$prev_hash" ]; then
-  echo "git log from upstream:"
-  pretty_git_log="$(git log $UPSTREAM_COMMIT \
-                    --no-merges \
-                    --topo-order \
-                    --pretty="%h %s" \
-                    --max-count=20 \
-                    $prev_hash..$hash)"
-  if [ -z "$pretty_git_log" ]; then
-    echo "No log found. Checking for reverts."
-    pretty_git_log="$(git log $UPSTREAM_COMMIT \
-                      --no-merges \
-                      --topo-order \
-                      --pretty="%h %s" \
-                      --max-count=20 \
-                      $hash..$prev_hash)"
-  fi
-  echo "$pretty_git_log"
-  # If it makes it to 20 then it's probably skipping even more.
-  if [ `echo "$pretty_git_log" | wc -l` -eq 20 ]; then
-    echo "<...>"
-  fi
-fi
-
-# Commit message footer.
-echo ""
-echo "==============="
-
-# Add and remove files.
-echo "$add" | xargs -I {} git add {}
-echo "$delete" | xargs -I {} git rm --ignore-unmatch {}
-
-# Find empty directories and remove them.
-find . -type d -empty -exec git rm {} \;
 
 # Remove the remote added earlier
 git remote remove $REMOTE
