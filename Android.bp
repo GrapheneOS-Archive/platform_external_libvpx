@@ -1230,6 +1230,10 @@ cc_fuzz {
             local_include_dirs: ["config/arm64"],
         },
 
+        riscv64: {
+            local_include_dirs: ["config/generic"],
+        },
+
         x86: {
             local_include_dirs: ["config/x86"],
         },
@@ -1264,6 +1268,10 @@ cc_fuzz {
 
         arm64: {
             local_include_dirs: ["config/arm64"],
+        },
+
+        riscv64: {
+            local_include_dirs: ["config/generic"],
         },
 
         x86: {
