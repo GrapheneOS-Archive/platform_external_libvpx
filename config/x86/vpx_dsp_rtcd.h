@@ -833,7 +833,8 @@ unsigned int vpx_highbd_avg_8x8_sse2(const uint8_t *s8, int p);
 #define vpx_highbd_avg_8x8 vpx_highbd_avg_8x8_sse2
 
 void vpx_highbd_comp_avg_pred_c(uint16_t *comp_pred, const uint16_t *pred, int width, int height, const uint16_t *ref, int ref_stride);
-#define vpx_highbd_comp_avg_pred vpx_highbd_comp_avg_pred_c
+void vpx_highbd_comp_avg_pred_sse2(uint16_t *comp_pred, const uint16_t *pred, int width, int height, const uint16_t *ref, int ref_stride);
+#define vpx_highbd_comp_avg_pred vpx_highbd_comp_avg_pred_sse2
 
 void vpx_highbd_convolve8_c(const uint16_t *src, ptrdiff_t src_stride, uint16_t *dst, ptrdiff_t dst_stride, const InterpKernel *filter, int x0_q4, int x_step_q4, int y0_q4, int y_step_q4, int w, int h, int bd);
 #define vpx_highbd_convolve8 vpx_highbd_convolve8_c
